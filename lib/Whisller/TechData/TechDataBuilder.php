@@ -8,10 +8,11 @@ use Whisller\TechData\BuilderComponents\OrderComponent;
 class TechDataBuilder
 {
     private $xml;
+    private $template = '<?xml version="1.0" encoding="ISO-8859-1" ?><!DOCTYPE OrderEnv SYSTEM "%s"><OrderEnv AuthCode="%s" MsgID="%d"></OrderEnv>';
 
-    public function __construct($dtd)
+    public function __construct($dtd, $authCode, $msgId)
     {
-        $this->xml = new SimpleXMLElement('<?xml version="1.0" encoding="ISO-8859-1" ?><!DOCTYPE OrderEnv SYSTEM "'.$dtd.'"><OrderEnv AuthCode="123456" MsgID="1"></OrderEnv>');
+        $this->xml = new SimpleXMLElement(sprintf($this->template, $dtd, $authCode, $msgId));
     }
 
     public function addOrder($currency)

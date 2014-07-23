@@ -23,16 +23,10 @@ class HeadComponent extends AbstractComponent implements Component
         return $this;
     }
 
-    public function addDeliverTo()
-    {
-        return new DeliverTo($this->currentXml, $this);
-    }
-
-    public function setDelivery($type, $full)
+    public function setDelivery($type)
     {
         $delivery = $this->currentXml->addChild('Delivery');
         $delivery->addAttribute('Type', $type);
-        $delivery->addAttribute('Full', $full);
 
         return $this;
     }
