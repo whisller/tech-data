@@ -51,12 +51,12 @@ class TechDataClient
 
     private function processResponse(Response $response)
     {
-        $this->checkIfIsFailure((string) $response->getBody());
+        $this->checkIfItIsFailure((string) $response->getBody());
 
 
     }
 
-    private function checkIfIsFailure($body)
+    private function checkIfItIsFailure($body)
     {
         /** @var XGResponse $XGResponse */
         $XGResponse = $this->serializer->deserialize($body, 'Whisller\TechData\ResponseModels\XGResponse', 'xml');
