@@ -2,20 +2,20 @@
 
 namespace Whisller\TechData;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Message\Response;
-use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\SerializerInterface;
 use Whisller\TechData\Components\OrderEnvComponent;
 
 class TechDataClient
 {
-    private $httpClient;
-    private $serializer;
+    protected $httpClient;
+    protected $serializer;
 
-    public function __construct()
+    public function __construct(ClientInterface $client, SerializerInterface $serializer)
     {
-        $this->httpClient = new Client();
-        $this->serializer = SerializerBuilder::create()->build();
+        $this->httpClient = $client;
+        $this->serializer = $serializer;
     }
 
     public function sendOrders(OrderEnvComponent $orderEnv)

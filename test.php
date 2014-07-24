@@ -3,6 +3,8 @@
 include './vendor/autoload.php';
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use GuzzleHttp\Client;
+use JMS\Serializer\SerializerBuilder;
 
 AnnotationRegistry::registerLoader('class_exists');
 
@@ -15,7 +17,7 @@ $orderEnv->addOrder($order);
 
 $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
 
-$httpClient = new \Whisller\TechData\TechDataClient();
+$httpClient = new \Whisller\TechData\TechDataClient(new Client(), SerializerBuilder::create()->build());
 $httpClient->sendOrders($orderEnv);
 
-//echo $serializer->serialize($orderEnv, 'xml');
+echo $serializer->serialize($orderEnv, 'xml');

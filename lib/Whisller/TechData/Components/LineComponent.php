@@ -16,21 +16,21 @@ class LineComponent
      * @Serializer\Type("integer")
      * @Serializer\SerializedName("ID")
      */
-    private $id;
+    protected $id;
     /**
      * @var int
      *
      * @Serializer\Type("integer")
      * @Serializer\SerializedName("ItemID")
      */
-    private $itemId;
+    protected $itemId;
     /**
      * @var int
      *
      * @Serializer\Type("integer")
      * @Serializer\SerializedName("Qty")
      */
-    private $quantity;
+    protected $quantity;
 
     public function __construct($id, $itemId, $quantity)
     {

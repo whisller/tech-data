@@ -12,7 +12,7 @@ class OrderEnvComponent
     /**
      * @Serializer\XmlList(inline = true, entry = "Order")
      */
-    private $orders;
+    protected $orders;
 
     public function addOrder(OrderComponent $order)
     {

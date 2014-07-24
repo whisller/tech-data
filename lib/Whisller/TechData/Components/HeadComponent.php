@@ -13,12 +13,12 @@ class HeadComponent
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Title")
      */
-    private $title;
+    protected $title;
     /**
      * @Serializer\Type("DateTime<'Ymd'>")
      * @Serializer\SerializedName("OrderDate")
      */
-    private $orderDate;
+    protected $orderDate;
 
     public function __construct($title, $orderDate)
     {

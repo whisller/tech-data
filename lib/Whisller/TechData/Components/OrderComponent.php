@@ -14,21 +14,21 @@ class OrderComponent
      *
      * @Serializer\XmlAttribute
      */
-    private $currency;
+    protected $currency;
     /**
      * @var HeadComponent
      *
      * @Serializer\Type("Whisller\TechData\Components\HeadComponent")
      * @Serializer\SerializedName("Head")
      */
-    private $head;
+    protected $head;
     /**
      * @var BodyComponent
      *
      * @Serializer\Type("Whisller\TechData\Components\BodyComponent")
      * @Serializer\SerializedName("Body")
      */
-    private $body;
+    protected $body;
 
     public function __construct($currency, HeadComponent $head, BodyComponent $body)
     {

@@ -15,7 +15,7 @@ class BodyComponent
      * @Serializer\Type("Whisller\TechData\Components\LineComponent")
      * @Serializer\SerializedName("Line")
      */
-    private $line;
+    protected $line;
 
     public function __construct(LineComponent $line)
     {
