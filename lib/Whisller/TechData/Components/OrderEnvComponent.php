@@ -4,14 +4,17 @@ namespace Whisller\TechData\Components;
 
 use JMS\Serializer\Annotation as Serializer;
 
-class OrderEnv
+/**
+ * @Serializer\XmlRoot("OrderEnv")
+ */
+class OrderEnvComponent
 {
     /**
-     * @Serializer\Type("ArrayCollection<Whisller\TechData\Components\Order>")
+     * @Serializer\XmlList(inline = true, entry = "Order")
      */
     private $orders;
 
-    public function addOrder(Order $order)
+    public function addOrder(OrderComponent $order)
     {
         $this->orders[] = $order;
     }
