@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "jms/serializer": "0.15.*@dev"
+        "jms/serializer": "0.15.*@dev",
+        "guzzlehttp/guzzle": "4.1.*@dev"
     },
     "license": "MIT",
     "autoload": {

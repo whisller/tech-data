@@ -14,4 +14,8 @@ $order = new \Whisller\TechData\Components\OrderComponent('GBP', $head, $body);
 $orderEnv->addOrder($order);
 
 $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
-echo $serializer->serialize($orderEnv, 'xml');
+
+$httpClient = new \Whisller\TechData\TechDataClient();
+$httpClient->sendOrders($orderEnv);
+
+//echo $serializer->serialize($orderEnv, 'xml');
