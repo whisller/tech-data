@@ -6,6 +6,8 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Message\Response;
 use JMS\Serializer\SerializerInterface;
 use Whisller\TechData\Components\OrderEnvComponent;
+use Whisller\TechData\Exceptions\TechDataException;
+use Whisller\TechData\ResponseModels\XGResponse;
 
 class TechDataClient
 {
@@ -30,6 +32,26 @@ class TechDataClient
             ]
         );
 
-        var_dump((string) $response->getBody());
+        $this->processResponse($response);
+    }
+
+    private function processResponse(Response $response)
+    {
+        $this->checkIfIsFailure((string) $response->getBody());
+
+
+    }
+
+    private function checkIfIsFailure($body)
+    {
+        /** @var XGResponse $XGResponse */
+        $XGResponse = $this->serializer->deserialize($body, 'Whisller\TechData\ResponseModels\XGResponse', 'xml');
+
+        if ($XGResponse->isFailure()) {
+            throw new TechDataException(
+                trim($XGResponse->getFailure()->getMessage()),
+                $XGResponse->getFailure()->getCode()
+            );
+        }
     }
 }

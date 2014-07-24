@@ -13,6 +13,7 @@ class OrderComponent
      * @var string
      *
      * @Serializer\XmlAttribute
+     * @Serializer\Type("string")
      */
     protected $currency;
     /**
@@ -20,6 +21,7 @@ class OrderComponent
      *
      * @Serializer\Type("Whisller\TechData\Components\HeadComponent")
      * @Serializer\SerializedName("Head")
+     * @Serializer\XmlElement
      */
     protected $head;
     /**

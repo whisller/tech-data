@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation as Serializer;
 class OrderEnvComponent
 {
     /**
+     * @Serializer\Type("array<Whisller\TechData\Components\OrderComponent>")
      * @Serializer\XmlList(inline = true, entry = "Order")
      */
     protected $orders;
