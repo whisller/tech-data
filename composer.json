@@ -15,6 +15,7 @@
         "guzzlehttp/guzzle": "4.1.*@dev"
     },
     "license": "MIT",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-0": {
             "Whisller\\TechData": "lib/"
