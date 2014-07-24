@@ -15,7 +15,7 @@ class TechDataBuilder
         $this->xml = new SimpleXMLElement(sprintf($this->template, $dtd, $authCode, $msgId));
     }
 
-    public function addOrder($currency)
+    public function add($currency)
     {
         return (new OrderComponent($this->xml, null, ['currency' => $currency]));
     }

@@ -9,6 +9,9 @@
             "homepage": "http://ancuta.org"
         }
     ],
+    "require": {
+        "jms/serializer": "0.15.*@dev"
+    },
     "license": "MIT",
     "autoload": {
         "psr-0": {
