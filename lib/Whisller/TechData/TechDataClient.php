@@ -22,17 +22,31 @@ class TechDataClient
 
     public function sendOrders(OrderEnvComponent $orderEnv)
     {
+        $xml = $this->prepareRequestData(
+            $orderEnv,
+            'http://intcom.xml.quality.techdata.de:8080/XMLGate/XMLGateResponse.dtd'
+        );
+
         /** @var Response $response */
         $response = $this->httpClient->post(
             'https://intcom.xml.quality.techdata.de/XMLGate/inbound',
             [
                 'body' => [
-                    'xmlmsg' => $this->serializer->serialize($orderEnv, 'xml'),
+                    'xmlmsg' => $xml,
                 ]
             ]
         );
 
         $this->processResponse($response);
+    }
+
+    private function prepareRequestData($component, $dtd)
+    {
+        return preg_replace(
+            preg_quote('/<?xml version="1.0" encoding="UTF-8"?>/'),
+            sprintf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE InvoicEnv SYSTEM \"%s\">", $dtd),
+            $this->serializer->serialize($component, 'xml')
+        );
     }
 
     private function processResponse(Response $response)
