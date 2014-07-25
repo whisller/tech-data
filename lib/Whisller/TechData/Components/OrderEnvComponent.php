@@ -19,4 +19,4 @@ class OrderEnvComponent implements ComponentInterface
     {
         $this->orders[] = $order;
     }
-} 
+}

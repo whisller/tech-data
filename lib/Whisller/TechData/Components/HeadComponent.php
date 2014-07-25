@@ -25,4 +25,4 @@ class HeadComponent implements ComponentInterface
         $this->title = $title;
         $this->orderDate = $orderDate;
     }
-} 
+}

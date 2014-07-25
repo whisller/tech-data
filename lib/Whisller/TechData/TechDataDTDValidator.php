@@ -31,4 +31,4 @@ class TechDataDTDValidator
     {
         $this->errors[] = $errstr;
     }
-} 
+}

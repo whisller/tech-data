@@ -12,6 +12,20 @@ use JMS\Serializer\XmlDeserializationVisitor;
 AnnotationRegistry::registerLoader('class_exists');
 
 /**
+ * START: Prepare Serializer
+ */
+$xmlVisitor = new XmlDeserializationVisitor(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()));
+$xmlVisitor->setDoctypeWhitelist(
+    [
+        '<!DOCTYPE XGResponse SYSTEM "http://intcom.xml.techdata-europe.com:8080/XMLGate/XMLGateResponse.dtd">'
+    ]
+);
+$serializer = \JMS\Serializer\SerializerBuilder::create()->addDefaultSerializationVisitors()->setDeserializationVisitor('tech_data', $xmlVisitor)->build();
+/**
+ * STOP
+ */
+
+/**
  * START: Create Tech Data models
  */
 $orderEnv = new \Whisller\TechData\Components\OrderEnvComponent();
@@ -27,20 +41,30 @@ $orderEnv->addOrder($order);
  * STOP
  */
 
-$xmlVisitor = new XmlDeserializationVisitor(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()));
-$xmlVisitor->setDoctypeWhitelist(
-    [
-        '<!DOCTYPE XGResponse SYSTEM "http://intcom.xml.techdata-europe.com:8080/XMLGate/XMLGateResponse.dtd">'
-    ]
-);
-$serializer = \JMS\Serializer\SerializerBuilder::create()->addDefaultSerializationVisitors()->setDeserializationVisitor('tech_data', $xmlVisitor)->build();
-
-$dtdValidator = new \Whisller\TechData\TechDataDTDValidator();
-$transormerToXml = new \Whisller\TechData\Transformers\TransformerToXml($serializer, $dtdValidator);
-
+/**
+ * START: Transform objects to XML
+ */
+$transormerToXml = new \Whisller\TechData\Transformers\TransformerToXml($serializer, new \Whisller\TechData\TechDataDTDValidator());
 $xml = $transormerToXml->transform($orderEnv);
+/**
+ * STOP
+ */
 
+/**
+ * START: Send data to Tech Data
+ */
 $techDataApiClient = new \Whisller\TechData\TechDataClient(new Client(), $serializer);
-$techDataApiClient->sendOrders($xml);
+$response = $techDataApiClient->sendOrders($xml);
+/**
+ * STOP
+ */
 
-$serializer->serialize($orderEnv, 'xml');
+/**
+ * START: Transform response
+ */
+$transformToObject = new \Whisller\TechData\Transformers\TransformerToObject($serializer);
+var_dump($transformToObject->transform((string) $response->getBody()));
+/**
+ * STOP
+ */
+

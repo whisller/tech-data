@@ -21,4 +21,4 @@ class BodyComponent implements ComponentInterface
     {
         $this->line = $line;
     }
-} 
+}

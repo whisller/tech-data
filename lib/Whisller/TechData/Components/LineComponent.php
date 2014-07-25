@@ -38,4 +38,4 @@ class LineComponent implements ComponentInterface
         $this->itemId = $itemId;
         $this->quantity = $quantity;
     }
-} 
+}

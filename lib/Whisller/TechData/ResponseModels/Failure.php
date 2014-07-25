@@ -31,4 +31,4 @@ class Failure
     {
         return $this->message;
     }
-} 
+}

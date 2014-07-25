@@ -28,4 +28,4 @@ class XGResponse
     {
         return !empty($this->failure);
     }
-} 
+}
