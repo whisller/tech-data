@@ -13,11 +13,29 @@ class TechDataClient
 {
     protected $httpClient;
     protected $serializer;
+    protected $xsd = [
+        'test' => [
+            'OrderEnv' => 'https://integratex.quality.techdata.de:443/ix/dtd/ixOrder4.xsd',
+        ],
+        'live' => [
+            'OrderEnv' => 'https://integratex.techdata.com:443/ix/dtd/ixOrder4.xsd',
+        ]
+    ];
+    protected $dtd = [
+        'test' => [
+            'OrderEnv' => 'https://integratex.quality.techdata.de:443/ix/dtd/ixOrder4.dtd',
+        ],
+        'live' => [
+            'OrderEnv' => 'https://integratex.techdata.com:443/ix/dtd/ixOrder4.dtd',
+        ]
+    ];
+    protected $mode;
 
-    public function __construct(ClientInterface $client, SerializerInterface $serializer)
+    public function __construct(ClientInterface $client, SerializerInterface $serializer, $mode = 'test')
     {
         $this->httpClient = $client;
         $this->serializer = $serializer;
+        $this->mode = $mode;
     }
 
     public function sendOrders(OrderEnvComponent $orderEnv)
@@ -25,7 +43,7 @@ class TechDataClient
         $xml = $this->prepareRequestData(
             $orderEnv,
             'OrderEnv',
-            'http://intcom.xml.quality.techdata.de:8080/XMLGate/XMLGateResponse.dtd'
+            $this->dtd[$this->mode]['OrderEnv']
         );
 
         /** @var Response $response */
