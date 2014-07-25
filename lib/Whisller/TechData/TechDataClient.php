@@ -13,22 +13,6 @@ class TechDataClient
 {
     protected $httpClient;
     protected $serializer;
-    protected $xsd = [
-        'test' => [
-            'OrderEnv' => 'https://integratex.quality.techdata.de:443/ix/dtd/ixOrder4.xsd',
-        ],
-        'live' => [
-            'OrderEnv' => 'https://integratex.techdata.com:443/ix/dtd/ixOrder4.xsd',
-        ]
-    ];
-    protected $dtd = [
-        'test' => [
-            'OrderEnv' => 'https://integratex.quality.techdata.de:443/ix/dtd/ixOrder4.dtd',
-        ],
-        'live' => [
-            'OrderEnv' => 'https://integratex.techdata.com:443/ix/dtd/ixOrder4.dtd',
-        ]
-    ];
     protected $mode;
 
     public function __construct(ClientInterface $client, SerializerInterface $serializer, $mode = 'test')
@@ -38,14 +22,8 @@ class TechDataClient
         $this->mode = $mode;
     }
 
-    public function sendOrders(OrderEnvComponent $orderEnv)
+    public function sendOrders($xml)
     {
-        $xml = $this->prepareRequestData(
-            $orderEnv,
-            'OrderEnv',
-            $this->dtd[$this->mode]['OrderEnv']
-        );
-
         /** @var Response $response */
         $response = $this->httpClient->post(
             'https://intcom.xml.techdata-europe.com:443/XMLGate/inbound',
@@ -57,15 +35,6 @@ class TechDataClient
         );
 
         $this->processResponse($response);
-    }
-
-    protected function prepareRequestData($component, $doctype, $dtd)
-    {
-        return preg_replace(
-            preg_quote('/<?xml version="1.0" encoding="UTF-8"?>/'),
-            sprintf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE %s SYSTEM \"%s\">", $doctype, $dtd),
-            $this->serializer->serialize($component, 'xml')
-        );
     }
 
     protected function processResponse(Response $response)

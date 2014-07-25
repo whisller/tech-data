@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("OrderEnv")
  */
-class OrderEnvComponent
+class OrderEnvComponent implements ComponentInterface
 {
     /**
      * @Serializer\Type("array<Whisller\TechData\Components\OrderComponent>")

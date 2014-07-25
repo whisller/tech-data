@@ -7,13 +7,14 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("Order")
  */
-class OrderComponent
+class OrderComponent implements ComponentInterface
 {
     /**
      * @var string
      *
      * @Serializer\XmlAttribute
      * @Serializer\Type("string")
+     * @Serializer\SerializedName("Currency")
      */
     protected $currency;
     /**

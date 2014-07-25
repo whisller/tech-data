@@ -11,6 +11,9 @@ use JMS\Serializer\XmlDeserializationVisitor;
 
 AnnotationRegistry::registerLoader('class_exists');
 
+/**
+ * START: Create Tech Data models
+ */
 $orderEnv = new \Whisller\TechData\Components\OrderEnvComponent();
 $head = new \Whisller\TechData\Components\HeadComponent(
     'my title',
@@ -20,6 +23,9 @@ $line = new \Whisller\TechData\Components\LineComponent(1, 123, 55);
 $body = new \Whisller\TechData\Components\BodyComponent($line);
 $order = new \Whisller\TechData\Components\OrderComponent('GBP', $head, $body);
 $orderEnv->addOrder($order);
+/**
+ * STOP
+ */
 
 $xmlVisitor = new XmlDeserializationVisitor(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()));
 $xmlVisitor->setDoctypeWhitelist(
@@ -29,24 +35,12 @@ $xmlVisitor->setDoctypeWhitelist(
 );
 $serializer = \JMS\Serializer\SerializerBuilder::create()->addDefaultSerializationVisitors()->setDeserializationVisitor('tech_data', $xmlVisitor)->build();
 
-//var_dump($serializer->deserialize('
-//<OrderEnv>
-//  <Order currency="GBP">
-//    <Head>
-//      <Title><![CDATA[my title]]></Title>
-//      <OrderDate><![CDATA[20140724]]></OrderDate>
-//    </Head>
-//    <Body>
-//      <Line ID="1">
-//        <ItemID>123</ItemID>
-//        <Qty>55</Qty>
-//      </Line>
-//    </Body>
-//  </Order>
-//</OrderEnv>', 'Whisller\TechData\Components\OrderEnvComponent', 'xml'));
+$dtdValidator = new \Whisller\TechData\TechDataDTDValidator();
+$transormerToXml = new \Whisller\TechData\Transformers\TransformerToXml($serializer, $dtdValidator);
 
+$xml = $transormerToXml->transform($orderEnv);
 
 $techDataApiClient = new \Whisller\TechData\TechDataClient(new Client(), $serializer);
-$techDataApiClient->sendOrders($orderEnv);
+$techDataApiClient->sendOrders($xml);
 
-//echo $serializer->serialize($orderEnv, 'xml');
+$serializer->serialize($orderEnv, 'xml');
