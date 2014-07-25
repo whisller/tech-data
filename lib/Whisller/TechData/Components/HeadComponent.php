@@ -19,10 +19,17 @@ class HeadComponent implements ComponentInterface
      * @Serializer\SerializedName("OrderDate")
      */
     protected $orderDate;
+    /**
+     * @Serializer\Type("Whisller\TechData\Components\DeliverToComponent")
+     * @Serializer\SerializedName("DeliverTo")
+     */
+    protected $deliver;
 
-    public function __construct($title, $orderDate)
+
+    public function __construct($title, $orderDate, $deliver)
     {
         $this->title = $title;
         $this->orderDate = $orderDate;
+        $this->deliver = $deliver;
     }
 }

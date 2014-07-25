@@ -29,9 +29,13 @@ $serializer = \JMS\Serializer\SerializerBuilder::create()->addDefaultSerializati
  * START: Create Tech Data models
  */
 $orderEnv = new \Whisller\TechData\Components\OrderEnvComponent('my-auth-code', 1);
+$deliver = new \Whisller\TechData\Components\DeliverToComponent();
+$address = new \Whisller\TechData\Components\AddressComponent('69, Flat X', 'Nice Street', 'Nibylandia', 'UK');
+$deliver->setAddress($address);
 $head = new \Whisller\TechData\Components\HeadComponent(
     'my title',
-    new DateTime('now', new DateTimeZone('Europe/London'))
+    new DateTime('now', new DateTimeZone('Europe/London')),
+    $deliver
 );
 $line = new \Whisller\TechData\Components\LineComponent(1, 123, 55);
 $body = new \Whisller\TechData\Components\BodyComponent($line);
