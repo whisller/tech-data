@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "jms/serializer": "0.15.*@dev",
+        "jms/serializer": "~0.14",
         "guzzlehttp/guzzle": "4.1.*@dev"
     },
     "license": "MIT",
