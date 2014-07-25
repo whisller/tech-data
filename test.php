@@ -28,7 +28,7 @@ $serializer = \JMS\Serializer\SerializerBuilder::create()->addDefaultSerializati
 /**
  * START: Create Tech Data models
  */
-$orderEnv = new \Whisller\TechData\Components\OrderEnvComponent();
+$orderEnv = new \Whisller\TechData\Components\OrderEnvComponent('my-auth-code', 1);
 $head = new \Whisller\TechData\Components\HeadComponent(
     'my title',
     new DateTime('now', new DateTimeZone('Europe/London'))
