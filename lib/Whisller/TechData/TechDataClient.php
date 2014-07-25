@@ -24,12 +24,13 @@ class TechDataClient
     {
         $xml = $this->prepareRequestData(
             $orderEnv,
+            'OrderEnv',
             'http://intcom.xml.quality.techdata.de:8080/XMLGate/XMLGateResponse.dtd'
         );
 
         /** @var Response $response */
         $response = $this->httpClient->post(
-            'https://intcom.xml.quality.techdata.de/XMLGate/inbound',
+            'https://intcom.xml.techdata-europe.com:443/XMLGate/inbound',
             [
                 'body' => [
                     'xmlmsg' => $xml,
@@ -40,26 +41,24 @@ class TechDataClient
         $this->processResponse($response);
     }
 
-    private function prepareRequestData($component, $dtd)
+    protected function prepareRequestData($component, $doctype, $dtd)
     {
         return preg_replace(
             preg_quote('/<?xml version="1.0" encoding="UTF-8"?>/'),
-            sprintf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE InvoicEnv SYSTEM \"%s\">", $dtd),
+            sprintf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE %s SYSTEM \"%s\">", $doctype, $dtd),
             $this->serializer->serialize($component, 'xml')
         );
     }
 
-    private function processResponse(Response $response)
+    protected function processResponse(Response $response)
     {
         $this->checkIfItIsFailure((string) $response->getBody());
-
-
     }
 
-    private function checkIfItIsFailure($body)
+    protected function checkIfItIsFailure($body)
     {
         /** @var XGResponse $XGResponse */
-        $XGResponse = $this->serializer->deserialize($body, 'Whisller\TechData\ResponseModels\XGResponse', 'xml');
+        $XGResponse = $this->serializer->deserialize($body, 'Whisller\TechData\ResponseModels\XGResponse', 'tech_data');
 
         if ($XGResponse->isFailure()) {
             throw new TechDataException(

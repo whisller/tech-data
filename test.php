@@ -24,10 +24,10 @@ $orderEnv->addOrder($order);
 $xmlVisitor = new XmlDeserializationVisitor(new SerializedNameAnnotationStrategy(new IdenticalPropertyNamingStrategy()));
 $xmlVisitor->setDoctypeWhitelist(
     [
-        '<!DOCTYPE XGResponse SYSTEM "http://intcom.xml.quality.techdata.de:8080/XMLGate/XMLGateResponse.dtd">'
+        '<!DOCTYPE XGResponse SYSTEM "http://intcom.xml.techdata-europe.com:8080/XMLGate/XMLGateResponse.dtd">'
     ]
 );
-$serializer = \JMS\Serializer\SerializerBuilder::create()->addDefaultSerializationVisitors()->setDeserializationVisitor('xml', $xmlVisitor)->build();
+$serializer = \JMS\Serializer\SerializerBuilder::create()->addDefaultSerializationVisitors()->setDeserializationVisitor('tech_data', $xmlVisitor)->build();
 
 //var_dump($serializer->deserialize('
 //<OrderEnv>
