@@ -48,7 +48,7 @@ $orderEnv->addOrder($order);
 /**
  * START: Send data to Tech Data
  */
-$techDataApiClient = new \Whisller\TechData\TechDataClient(new Client(), $serializer, new \Whisller\TechData\TechDataValidator());
+$techDataApiClient = new \Whisller\TechData\TechDataClient(new Client(), $serializer, new \Whisller\TechData\TechDataValidator(), 'https://intcom.xml.techdata-europe.com:443/');
 $response = $techDataApiClient->sendOrders($orderEnv);
 /**
  * STOP

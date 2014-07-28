@@ -11,28 +11,21 @@ use Whisller\TechData\ResponseModels\Response as ModelResponse;
 
 class TechDataClient
 {
-    const MODE_TEST = 'test';
-    const MODE_LIVE = 'live';
-
     protected $httpClient;
     protected $serializer;
     protected $validator;
-    protected $mode;
-    protected $baseDomain = [
-        self::MODE_TEST => 'https://integratex.quality.techdata.de:443',
-        self::MODE_LIVE => 'https://integratex.techdata.com:443',
-    ];
+    protected $serverDomain;
 
     public function __construct(
         ClientInterface $client,
         SerializerInterface $serializer,
         TechDataValidator $validator,
-        $mode = self::MODE_TEST
+        $serverDomain
     ) {
         $this->httpClient = $client;
         $this->serializer = $serializer;
         $this->validator = $validator;
-        $this->mode = $mode;
+        $this->serverDomain = $serverDomain;
     }
 
     public function sendOrders(BaseComponentInterface $component)
@@ -41,7 +34,7 @@ class TechDataClient
 
         /** @var Response $response */
         $response = $this->httpClient->post(
-            'https://intcom.xml.techdata-europe.com:443/XMLGate/inbound',
+            $this->serverDomain.'/XMLGate/inbound',
             [
                 'body' => [
                     'xmlmsg' => $xml,
@@ -73,10 +66,10 @@ class TechDataClient
         $xml = $this->postProcess(
             $xml,
             $component->getType(),
-            $this->baseDomain[$this->mode].$component->getDTD()
+            $this->serverDomain.$component->getDTD()
         );
 
-        $this->validator->validate($xml, $this->baseDomain[$this->mode].$component->getXSD());
+        $this->validator->validate($xml, $this->serverDomain.$component->getXSD());
 
         return $xml;
     }
@@ -85,7 +78,7 @@ class TechDataClient
     {
         return str_replace(
             '<?xml version="1.0" encoding="UTF-8"?>',
-            sprintf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE %s SYSTEM \"%s\">", $doctype, $dtd),
+            sprintf('<?xml version="1.0" encoding="UTF-8"?>'."\n".'<!DOCTYPE %s SYSTEM "%s">', $doctype, $dtd),
             $xml
         );
     }
