@@ -37,7 +37,7 @@ $head = new \Whisller\TechData\Components\HeadComponent(
     new DateTime('now', new DateTimeZone('Europe/London')),
     $deliver
 );
-$line = new \Whisller\TechData\Components\LineComponent(1, 123, 55);
+$line = new \Whisller\TechData\Components\LineComponent(1, 123, 55, [new \Whisller\TechData\Components\AddItemID('EAN', 'my-ean')]);
 $body = new \Whisller\TechData\Components\BodyComponent($line);
 $order = new \Whisller\TechData\Components\OrderComponent('GBP', $head, $body);
 $orderEnv->addOrder($order);
