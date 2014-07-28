@@ -5,14 +5,9 @@ namespace Whisller\TechData;
 use DOMDocument;
 use Whisller\TechData\Exceptions\TechDataException;
 
-class TechDataDTDValidator
+class TechDataValidator
 {
-    protected $errors;
-
-    public function __construct()
-    {
-        $this->errors = [];
-    }
+    protected $errors = [];
 
     public function validate($xml, $xsd)
     {
@@ -21,6 +16,8 @@ class TechDataDTDValidator
         $document = new DOMDocument();
         $document->loadXML($xml);
         $document->schemaValidate($xsd);
+
+        restore_error_handler();
 
         if (count($this->errors) > 0) {
             throw new TechDataException(sprintf("Your XML file is not valid: [%s]", implode("\n", $this->errors)));

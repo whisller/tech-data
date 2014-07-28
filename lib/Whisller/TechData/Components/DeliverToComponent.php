@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("DeliverTo")
  */
-class DeliverToComponent implements ComponentInterface
+class DeliverToComponent
 {
     /**
      * @Serializer\Type("Whisller\TechData\Components\AddressComponent")

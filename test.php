@@ -46,19 +46,10 @@ $orderEnv->addOrder($order);
  */
 
 /**
- * START: Transform objects to XML
- */
-$transormerToXml = new \Whisller\TechData\Transformers\TransformerToXml($serializer, new \Whisller\TechData\TechDataDTDValidator());
-$xml = $transormerToXml->transform($orderEnv);
-/**
- * STOP
- */
-
-/**
  * START: Send data to Tech Data
  */
-$techDataApiClient = new \Whisller\TechData\TechDataClient(new Client(), $serializer);
-$response = $techDataApiClient->sendOrders($xml);
+$techDataApiClient = new \Whisller\TechData\TechDataClient(new Client(), $serializer, new \Whisller\TechData\TechDataValidator());
+$response = $techDataApiClient->sendOrders($orderEnv);
 /**
  * STOP
  */

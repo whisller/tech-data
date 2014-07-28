@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("OrderEnv")
  */
-class OrderEnvComponent implements ComponentInterface
+class OrderEnvComponent implements BaseComponentInterface
 {
     /**
      * @Serializer\XmlAttribute
@@ -36,5 +36,20 @@ class OrderEnvComponent implements ComponentInterface
     public function addOrder(OrderComponent $order)
     {
         $this->orders[] = $order;
+    }
+
+    public function getXSD()
+    {
+        return '/ix/dtd/ixOrder4.xsd';
+    }
+
+    public function getDTD()
+    {
+        return '/ix/dtd/ixOrder4.dtd';
+    }
+
+    public function getType()
+    {
+        return 'OrderEnv';
     }
 }

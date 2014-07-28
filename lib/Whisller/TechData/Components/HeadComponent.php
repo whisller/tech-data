@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("Head")
  */
-class HeadComponent implements ComponentInterface
+class HeadComponent
 {
     /**
      * @Serializer\Type("string")

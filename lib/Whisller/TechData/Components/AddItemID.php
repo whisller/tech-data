@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("AddItemID")
  */
-class AddItemID implements ComponentInterface
+class AddItemID
 {
     /**
      * @Serializer\XmlAttribute

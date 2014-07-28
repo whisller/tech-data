@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("Body")
  */
-class BodyComponent implements ComponentInterface
+class BodyComponent
 {
     /**
      * @var LineComponent

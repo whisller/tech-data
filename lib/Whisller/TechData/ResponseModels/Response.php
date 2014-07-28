@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("XGResponse")
  */
-class XGResponse
+class Response
 {
     /**
      * @Serializer\Type("Whisller\TechData\ResponseModels\Failure")

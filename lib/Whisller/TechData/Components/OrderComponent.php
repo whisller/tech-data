@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("Order")
  */
-class OrderComponent implements ComponentInterface
+class OrderComponent
 {
     /**
      * @var string
