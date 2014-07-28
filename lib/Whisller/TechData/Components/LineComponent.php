@@ -25,18 +25,17 @@ class LineComponent implements ComponentInterface
      */
     protected $itemId;
     /**
+     * @Serializer\Type("array<Whisller\TechData\Components\AddItemID>")
+     * @Serializer\XmlList(inline = true, entry = "AddItemID")
+     */
+    protected $addItemIds;
+    /**
      * @var int
      *
      * @Serializer\Type("integer")
      * @Serializer\SerializedName("Qty")
      */
     protected $quantity;
-
-    /**
-     * @Serializer\Type("array<Whisller\TechData\Components\AddItemID>")
-     * @Serializer\XmlList(inline = true, entry = "AddItemID")
-     */
-    protected $addItemIds;
 
     public function __construct($id, $itemId, $quantity, array $addItemIds = [])
     {
