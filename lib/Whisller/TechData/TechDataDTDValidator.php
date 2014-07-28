@@ -14,13 +14,13 @@ class TechDataDTDValidator
         $this->errors = [];
     }
 
-    public function validate($xml)
+    public function validate($xml, $xsd)
     {
         set_error_handler([$this, 'onValidateError']);
 
         $document = new DOMDocument();
         $document->loadXML($xml);
-        $document->validate();
+        $document->schemaValidate($xsd);
 
         if (count($this->errors) > 0) {
             throw new TechDataException(sprintf("Your XML file is not valid: [%s]", implode("\n", $this->errors)));

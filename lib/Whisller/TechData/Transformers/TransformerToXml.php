@@ -50,7 +50,7 @@ class TransformerToXml
             $this->dtd[$this->mode][$doctype]
         );
 
-        $this->dtdValidator->validate($xml);
+        $this->dtdValidator->validate($xml, $this->xsd[$this->mode][$doctype]);
 
         return $xml;
     }
