@@ -7,17 +7,17 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("Body")
  */
-class BodyComponent
+class Body
 {
     /**
-     * @var LineComponent
+     * @var Line
      *
-     * @Serializer\Type("Whisller\TechData\Components\LineComponent")
+     * @Serializer\Type("Whisller\TechData\Components\Line")
      * @Serializer\SerializedName("Line")
      */
     protected $line;
 
-    public function __construct(LineComponent $line)
+    public function __construct(Line $line)
     {
         $this->line = $line;
     }

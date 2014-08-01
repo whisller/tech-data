@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("Address")
  */
-class AddressComponent
+class Address
 {
     /**
      * @Serializer\Type("string")

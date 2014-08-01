@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("OrderEnv")
  */
-class OrderEnvComponent implements BaseComponentInterface
+class OrderEnv implements BaseComponentInterface
 {
     /**
      * @Serializer\XmlAttribute
@@ -22,7 +22,7 @@ class OrderEnvComponent implements BaseComponentInterface
      */
     protected $msgId;
     /**
-     * @Serializer\Type("array<Whisller\TechData\Components\OrderComponent>")
+     * @Serializer\Type("array<Whisller\TechData\Components\Order>")
      * @Serializer\XmlList(inline = true, entry = "Order")
      */
     protected $orders;
@@ -33,7 +33,7 @@ class OrderEnvComponent implements BaseComponentInterface
         $this->msgId = $msgId;
     }
 
-    public function addOrder(OrderComponent $order)
+    public function addOrder(Order $order)
     {
         $this->orders[] = $order;
     }

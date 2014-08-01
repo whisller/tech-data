@@ -15,6 +15,12 @@ class Response
      * @Serializer\SerializedName("Failure")
      */
     protected $failure;
+    /**
+     * @Serializer\Type("Whisller\TechData\ResponseModels\Success")
+     * @Serializer\XmlList(entry = "Success")
+     * @Serializer\SerializedName("Success")
+     */
+    protected $success;
 
     /**
      * @return Failure
@@ -22,6 +28,14 @@ class Response
     public function getFailure()
     {
         return $this->failure;
+    }
+
+    /**
+     * @return Success
+     */
+    public function getSuccess()
+    {
+        return $this->success;
     }
 
     public function isFailure()

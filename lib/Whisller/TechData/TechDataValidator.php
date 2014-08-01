@@ -3,7 +3,7 @@
 namespace Whisller\TechData;
 
 use DOMDocument;
-use Whisller\TechData\Exceptions\TechDataException;
+use Whisller\TechData\Exceptions\TechDataValidatorException;
 
 class TechDataValidator
 {
@@ -20,7 +20,7 @@ class TechDataValidator
         restore_error_handler();
 
         if (count($this->errors) > 0) {
-            throw new TechDataException(sprintf("Your XML file is not valid: [%s]", implode("\n", $this->errors)));
+            throw new TechDataValidatorException(sprintf("Your XML file is not valid: [%s]", implode("\n", $this->errors)));
         }
     }
 

@@ -6,7 +6,7 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Message\Response;
 use JMS\Serializer\SerializerInterface;
 use Whisller\TechData\Components\BaseComponentInterface;
-use Whisller\TechData\Exceptions\TechDataException;
+use Whisller\TechData\Exceptions\TechDataHttpResponseException;
 use Whisller\TechData\ResponseModels\Response as ModelResponse;
 
 class TechDataClient
@@ -31,6 +31,7 @@ class TechDataClient
     public function sendOrders(BaseComponentInterface $component)
     {
         $xml = $this->transform($component);
+        $this->validator->validate($xml, $this->serverDomain.$component->getXSD());
 
         /** @var Response $response */
         $response = $this->httpClient->post(
@@ -50,7 +51,7 @@ class TechDataClient
         );
 
         if ($responseObject->isFailure()) {
-            throw new TechDataException(
+            throw new TechDataHttpResponseException(
                 trim($responseObject->getFailure()->getMessage()),
                 $responseObject->getFailure()->getCode()
             );
@@ -68,8 +69,6 @@ class TechDataClient
             $component->getType(),
             $this->serverDomain.$component->getDTD()
         );
-
-        $this->validator->validate($xml, $this->serverDomain.$component->getXSD());
 
         return $xml;
     }

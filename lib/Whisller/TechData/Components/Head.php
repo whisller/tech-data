@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("Head")
  */
-class HeadComponent
+class Head
 {
     /**
      * @Serializer\Type("string")
@@ -20,7 +20,7 @@ class HeadComponent
      */
     protected $orderDate;
     /**
-     * @Serializer\Type("Whisller\TechData\Components\DeliverToComponent")
+     * @Serializer\Type("Whisller\TechData\Components\DeliverTo")
      * @Serializer\SerializedName("DeliverTo")
      */
     protected $deliver;

@@ -7,15 +7,15 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("DeliverTo")
  */
-class DeliverToComponent
+class DeliverTo
 {
     /**
-     * @Serializer\Type("Whisller\TechData\Components\AddressComponent")
+     * @Serializer\Type("Whisller\TechData\Components\Address")
      * @Serializer\SerializedName("Address")
      */
     protected $address;
 
-    public function setAddress(AddressComponent $address)
+    public function setAddress(Address $address)
     {
         $this->address = $address;
     }

@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * @Serializer\XmlRoot("Order")
  */
-class OrderComponent
+class Order
 {
     /**
      * @var string
@@ -18,22 +18,22 @@ class OrderComponent
      */
     protected $currency;
     /**
-     * @var HeadComponent
+     * @var Head
      *
-     * @Serializer\Type("Whisller\TechData\Components\HeadComponent")
+     * @Serializer\Type("Whisller\TechData\Components\Head")
      * @Serializer\SerializedName("Head")
      * @Serializer\XmlElement
      */
     protected $head;
     /**
-     * @var BodyComponent
+     * @var Body
      *
-     * @Serializer\Type("Whisller\TechData\Components\BodyComponent")
+     * @Serializer\Type("Whisller\TechData\Components\Body")
      * @Serializer\SerializedName("Body")
      */
     protected $body;
 
-    public function __construct($currency, HeadComponent $head, BodyComponent $body)
+    public function __construct($currency, Head $head, Body $body)
     {
         $this->currency = $currency;
         $this->head = $head;
